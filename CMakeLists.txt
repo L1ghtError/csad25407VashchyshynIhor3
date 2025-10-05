@@ -1,7 +1,19 @@
+
 cmake_minimum_required(VERSION 3.10)
 project(project)
 
 set(CMAKE_CXX_STANDARD 11)
+
+# Fix MSVC runtime library mismatch for Google Test
+if(MSVC)
+	set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
+	foreach(flag_var
+		CMAKE_C_FLAGS_DEBUG CMAKE_C_FLAGS_RELEASE
+		CMAKE_CXX_FLAGS_DEBUG CMAKE_CXX_FLAGS_RELEASE)
+		string(REPLACE "/MT" "/MD" ${flag_var} "${${flag_var}}")
+		string(REPLACE "/MTd" "/MDd" ${flag_var} "${${flag_var}}")
+	endforeach()
+endif()
 
 add_executable(project main.cpp)
 
