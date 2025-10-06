@@ -16,7 +16,7 @@ if(MSVC)
 	endforeach()
 endif()
 
-add_executable(project main.cpp)
+add_executable(hello main.cpp)
 
 # GoogleTest
 include(FetchContent)
